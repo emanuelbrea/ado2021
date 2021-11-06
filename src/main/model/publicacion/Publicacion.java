@@ -3,6 +3,7 @@ package model.publicacion;
 import model.postulante.Postulacion;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Publicacion {
@@ -26,22 +27,20 @@ public class Publicacion {
 
 
     public Publicacion(String titulo, String descripcion, ModalidadContrato contrato,
-                       Trabajo tipoTrabajo, String lugarTrabajo, List<Requisito> requisitos, Double monto,
-                       LocalDateTime vigencia, EstadoPublicacion estado, Categoria categoria, List<Tarea> tareas,
-                       List<Postulacion> postulaciones) {
+                       Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
+                       LocalDateTime vigencia, Categoria categoria) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contrato = contrato;
         this.tipoTrabajo = tipoTrabajo;
         this.lugarTrabajo = lugarTrabajo;
-        this.requisitos = requisitos;
+        this.requisitos = new ArrayList();
         this.monto = monto;
         this.vigencia = vigencia;
-        this.estado = estado;
+        this.estado = new Activa();
         this.categoria = categoria;
-        this.tareas = tareas;
-        this.postulaciones = postulaciones;
-
+        this.tareas = new ArrayList<>();
+        this.postulaciones = new ArrayList<>();
     }
 
 
@@ -91,5 +90,17 @@ public class Publicacion {
 
     public List<Postulacion> getPostulaciones() {
         return postulaciones;
+    }
+
+    public void addRequisito(Requisito requisito){
+        this.requisitos.add(requisito);
+    }
+
+    public void addPostulacion(Postulacion postulacion){
+        this.postulaciones.add(postulacion);
+    }
+
+    public void addTarea(Tarea tarea){
+        this.tareas.add(tarea);
     }
 }
