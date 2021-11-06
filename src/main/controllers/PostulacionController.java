@@ -1,9 +1,8 @@
 package controllers;
 
-import model.Postulacion;
-import model.Postulante;
-import model.Publicacion;
-import model.User;
+import model.postulante.Postulacion;
+import model.postulante.Postulante;
+import model.publicacion.Publicacion;
 
 public class PostulacionController {
 
@@ -18,8 +17,8 @@ public class PostulacionController {
     public void crearPostulacion(int idPublicacion){
         // save cv as file, and get path
         String cvPath = "";
-        Publicacion publicacion = Publicacion.getPublicacion(idPublicacion);
-        Postulacion postulacion = new Postulacion(this.postulante, publicacion,cvPath);
+//        Publicacion publicacion = Publicacion.getPublicacion(idPublicacion);
+//        Postulacion postulacion = new Postulacion(this.postulante, publicacion,cvPath);
 
     }
 

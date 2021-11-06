@@ -1,4 +1,4 @@
-package model;
+package model.publicacion;
 
 public class Activa extends EstadoPublicacion {
     public void manejarEstado(Publicacion publicacion) {

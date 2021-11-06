@@ -1,4 +1,4 @@
-package model;
+package model.publicacion;
 
 public enum TipoRequisito {
     ESTUDIO_ALCANZADO,

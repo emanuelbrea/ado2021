@@ -1,9 +1,11 @@
-package model;
+package model.postulante;
+
+import model.publicacion.Publicacion;
 
 import java.time.LocalDateTime;
 
 public class Postulacion {
-    private int id ;
+    private int id;
     private Postulante postulante;
     private Publicacion publicacion;
     private LocalDateTime fecha;
@@ -14,10 +16,6 @@ public class Postulacion {
         this.publicacion = publicacion;
         this.cvPath = cvPath;
         this.fecha = LocalDateTime.now();
-
-
-        PostulacionService postulacionService = new PostulacionService();
-        this.id = postulacionService.savePostulacion(postulante, publicacion,fecha, cvPath);
     }
 
     public int getId() {

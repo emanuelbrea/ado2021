@@ -1,4 +1,4 @@
-package model;
+package model.postulante;
 
 public class Nacionalidad {
     private int id;

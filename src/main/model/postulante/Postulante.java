@@ -1,10 +1,14 @@
-package model;
+package model.postulante;
+
+import model.publicacion.Categoria;
+import model.publicacion.Publicacion;
+import model.users.User;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
-public class Postulante extends User{
+public class Postulante extends User {
     private String nombre;
     private String apellido;
     private LocalDateTime fechaNacimiento;
