@@ -5,10 +5,11 @@ import service.PostulacionService;
 import service.PublicacionService;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 
 public class TestPostulante {
 
-    LocalDateTime vigencia = LocalDateTime.now();
+    LocalDateTime vigencia = LocalDateTime.now().plusDays(30);
     Categoria categoria = Categoria.CONTABLE;
 
     PublicacionService publicacionService = new PublicacionService();
@@ -169,6 +170,20 @@ public class TestPostulante {
 
         assert (postulante.getPostulaciones().size() == 1);
         assert (pub.getPostulaciones().size() == 1);
+
+    }
+
+    @Test
+    public void testPublicacionInactiva(){
+
+        Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.PRESENCIAL, "caba",10000.0 ,LocalDateTime.now().minus(Period.ofDays(1)), categoria);
+
+        Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
+
+        assert (postulacion == null);
+        assert (postulante.getPostulaciones().size() == 0);
+        assert (pub.getPostulaciones().size() == 0);
 
     }
 }

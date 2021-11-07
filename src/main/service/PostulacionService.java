@@ -1,5 +1,6 @@
 package service;
 
+import controllers.PostulacionController;
 import model.postulante.*;
 import model.publicacion.Publicacion;
 import model.publicacion.Requisito;
@@ -11,14 +12,26 @@ import java.util.stream.Collectors;
 
 public class PostulacionService {
 
+    PostulacionController controller ;
+
+    public PostulacionService() {
+        this.controller = new PostulacionController();
+        this.controller.borrarPostulaciones();
+    }
+
     public Postulacion crearPostulacion(Postulante postulante, Publicacion publicacion, String cv,
                                         Double montoPretendido, Experiencia experiencia) {
+        if( !publicacion.isActive()){
+            return null;
+        }
         if (!this.cumpleRequisitos(postulante, publicacion, montoPretendido, experiencia)) {
             return null;
         }
         Postulacion postulacion = new Postulacion(postulante, publicacion, cv);
         postulante.addPostulacion(postulacion);
         publicacion.addPostulacion(postulacion);
+
+        controller.crearPostulacion(postulacion);
 
         return postulacion;
 

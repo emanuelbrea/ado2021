@@ -1,11 +1,22 @@
 package service;
 
+import controllers.PublicacionController;
 import model.publicacion.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PublicacionService {
+
+    private final PublicacionController controller ;
+
+    public PublicacionService() {
+        this.controller =  new PublicacionController();
+        this.controller.borrarPublicaciones();
+    }
 
     public Publicacion crearPublicacion(String titulo, String descripcion, ModalidadContrato contrato,
                                         Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
@@ -23,14 +34,8 @@ public class PublicacionService {
         Publicacion publicacion = new Publicacion(titulo, descripcion, contrato, tipoTrabajo, lugarTrabajo,
                 monto, vigencia, categoria);
 
+        controller.crearPublicacion(publicacion);
 
-//        PublicacionController controller = new PublicacionController();
-//        try{
-//            controller.crearPublicacion(publicacion);
-//        }
-//        catch(SQLException e){
-//
-//        }
         return publicacion;
     }
 
@@ -46,6 +51,17 @@ public class PublicacionService {
 
     public void deshabilitarPublicacion(@NotNull Publicacion publicacion) {
         publicacion.cambiarEstado(new Inactiva());
+    }
+
+    public void habilitarPublicacion(@NotNull Publicacion publicacion) {
+        publicacion.cambiarEstado(new Activa());
+    }
+
+    public int getCantidadPublicaciones(){
+        List<Publicacion> publicaciones = controller.getPublicaciones();
+
+        return publicaciones.size();
+
     }
 
 }

@@ -10,12 +10,20 @@ import static org.junit.Assert.assertFalse;
 
 public class TestPublicacion {
 
-    LocalDateTime vigencia = LocalDateTime.now();
+    LocalDateTime vigencia = LocalDateTime.now().plusDays(30);
     Categoria categoria = Categoria.CONTABLE;
     PublicacionService service = new PublicacionService();
 
     @Test
     public void testCrearPublicacion(){
+        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria);
+
+        assert( service.getCantidadPublicaciones() == 1);
+    }
+
+    @Test
+    public void testCrearPublicacionConRequisito(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria);
 
@@ -46,6 +54,18 @@ public class TestPublicacion {
     }
 
     @Test
+    public void testHabilitarPublicacion(){
+        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.PRESENCIAL, "caba",950.4,LocalDateTime.now().minus(Period.ofDays(1)), categoria);
+
+        assertFalse( pub.isActive());
+
+        service.habilitarPublicacion(pub);
+
+        assert( pub.isActive());
+    }
+
+    @Test
     public void testTrabajoRemotoSinLugar(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4,vigencia, categoria);
@@ -56,9 +76,19 @@ public class TestPublicacion {
     @Test
     public void testCrearPublicacionInactiva(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.REMOTO, "caba",950.4, vigencia.minus(Period.ofDays(1)), categoria);
+                Trabajo.REMOTO, "caba",950.4, LocalDateTime.now().minus(Period.ofDays(1)), categoria);
 
         assertFalse( pub.isActive());
     }
+
+    @Test
+    public void testCrearPublicacionSinTitulo(){
+        Publicacion pub =  service.crearPublicacion("","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria);
+
+        assertFalse( pub.getTitulo().isEmpty() );
+    }
+
+
 
 }

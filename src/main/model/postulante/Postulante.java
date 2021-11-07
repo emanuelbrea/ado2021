@@ -49,4 +49,16 @@ public class Postulante extends User {
     public List<Idioma> getIdiomas() {
         return idiomas;
     }
+
+    public void addFavorito( Publicacion publicacion){
+        this.favoritos.add(publicacion);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
 }

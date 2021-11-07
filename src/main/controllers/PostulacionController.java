@@ -1,23 +1,47 @@
 package controllers;
 
+import dao.Conexion;
+import model.postulante.Postulacion;
 import model.postulante.Postulante;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class PostulacionController {
 
-    private final Postulante postulante;
+    static Connection con = Conexion.getConnection();
 
+    public boolean crearPostulacion(Postulacion postulacion){
+        boolean created = false;
+        try{
+            String query = "insert into postulacion( nombrePostulante, apellidoPostulante, tituloPublicacion) values" +
+                    "(?, ?, ?)";
+            PreparedStatement ps
+                    = con.prepareStatement(query);
+            ps.setString(1, postulacion.getPostulante().getNombre());
+            ps.setString(2, postulacion.getPostulante().getApellido());
+            ps.setString(3, postulacion.getPublicacion().getTitulo());
+            ps.executeUpdate();
+            created = true;
+        }
+        catch (SQLException exception){
+            exception.printStackTrace();
+        }
+        return created;
 
-    public PostulacionController(Postulante postulante) {
-        this.postulante = postulante;
     }
 
-
-    public void crearPostulacion(int idPublicacion) {
-        // save cv as file, and get path
-        String cvPath = "";
-//        Publicacion publicacion = Publicacion.getPublicacion(idPublicacion);
-//        Postulacion postulacion = new Postulacion(this.postulante, publicacion,cvPath);
-
+    public void borrarPostulaciones() {
+        try{
+            String query = "delete from postulacion";
+            PreparedStatement ps
+                    = con.prepareStatement(query);
+            ps.executeUpdate();
+        }
+        catch (SQLException exception){
+            exception.printStackTrace();
+        }
     }
 
 
