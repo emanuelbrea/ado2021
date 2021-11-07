@@ -22,6 +22,10 @@ public class Postulacion {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Postulante getPostulante() {
         return postulante;
     }
@@ -52,10 +56,6 @@ public class Postulacion {
 
     public void setCvPath(String cvPath) {
         this.cvPath = cvPath;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
 }

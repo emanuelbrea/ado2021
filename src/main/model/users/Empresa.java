@@ -1,6 +1,6 @@
 package model.users;
 
-public class Empresa extends User{
+public class Empresa extends User {
     private String razonSocial;
     private String idTributario;
     private String telefono;

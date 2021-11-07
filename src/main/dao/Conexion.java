@@ -7,16 +7,15 @@ import java.sql.SQLException;
 public final class Conexion {
 
     private static Connection con = null;
-    private static String url = "jdbc:sqlite:local_db.sqlite";
+    private static final String url = "jdbc:sqlite:local_db.sqlite";
 
 
     public static Connection getConnection() {
-        if( con == null){
+        if (con == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
                 con = DriverManager.getConnection(url);
-            }
-            catch (ClassNotFoundException | SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
         }

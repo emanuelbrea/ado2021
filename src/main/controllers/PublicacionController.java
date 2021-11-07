@@ -1,18 +1,16 @@
 package controllers;
-import java.sql.Connection;
-import dao.Conexion;
-import model.postulante.Postulacion;
-import model.publicacion.*;
 
+import dao.Conexion;
+import model.publicacion.Publicacion;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class PublicacionController {
 
-    static Connection  con = Conexion.getConnection();
+    static Connection con = Conexion.getConnection();
 
 
     public int crearPublicacion(Publicacion publicacion) throws SQLException {
@@ -29,7 +27,7 @@ public class PublicacionController {
         ps.setString(5, publicacion.getLugarTrabajo());
         ps.setDouble(6, publicacion.getMonto());
         ps.setTimestamp(7, Timestamp.valueOf(publicacion.getVigencia()));
-        ps.setString(8,  "ACTIVA");
+        ps.setString(8, "ACTIVA");
         int n = ps.executeUpdate();
         return n;
     }

@@ -8,27 +8,23 @@ import java.util.List;
 
 public class Publicacion {
     private int id;
-    private String titulo;
-    private String descripcion;
-    private ModalidadContrato contrato;
-    private Trabajo tipoTrabajo;
-    private String lugarTrabajo;
-    private List<Requisito> requisitos;
-    private Double monto;
-    private LocalDateTime vigencia;
-    private EstadoPublicacion estado;
-    private Categoria categoria;
-    private List<Tarea> tareas;
-    private List<Postulacion> postulaciones;
-
-    public void cambiarEstado(EstadoPublicacion estado) {
-        this.estado = estado;
-    }
-
+    private final String titulo;
+    private final String descripcion;
+    private final ModalidadContrato contrato;
+    private final Trabajo tipoTrabajo;
+    private final String lugarTrabajo;
+    private final List<Requisito> requisitos;
+    private final Double monto;
+    private final LocalDateTime vigencia;
+    private EstadoPublicacion estado = new Activa();
+    private final Categoria categoria;
+    private final List<Tarea> tareas;
+    private final List<Postulacion> postulaciones;
 
     public Publicacion(String titulo, String descripcion, ModalidadContrato contrato,
                        Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
                        LocalDateTime vigencia, Categoria categoria) {
+
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contrato = contrato;
@@ -37,12 +33,18 @@ public class Publicacion {
         this.requisitos = new ArrayList();
         this.monto = monto;
         this.vigencia = vigencia;
-        this.estado = new Activa();
+
+        if (vigencia.isBefore(LocalDateTime.now())) {
+            this.estado = new Inactiva();
+        }
         this.categoria = categoria;
         this.tareas = new ArrayList<>();
         this.postulaciones = new ArrayList<>();
     }
 
+    public void cambiarEstado(EstadoPublicacion estado) {
+        this.estado = estado;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -92,15 +94,20 @@ public class Publicacion {
         return postulaciones;
     }
 
-    public void addRequisito(Requisito requisito){
+    public void addRequisito(Requisito requisito) {
         this.requisitos.add(requisito);
     }
 
-    public void addPostulacion(Postulacion postulacion){
+    public void addPostulacion(Postulacion postulacion) {
         this.postulaciones.add(postulacion);
     }
 
-    public void addTarea(Tarea tarea){
+    public void addTarea(Tarea tarea) {
         this.tareas.add(tarea);
     }
+
+    public boolean isActive() {
+        return this.estado.isActive();
+    }
+
 }

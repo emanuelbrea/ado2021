@@ -1,6 +1,9 @@
 package model.postulante;
 
-public class Idioma {
-    private int id;
-    private String descripcion;
+public enum Idioma {
+    INGLES,
+    FRANCES,
+    CHINO,
+    PORTUGUES,
+    RUSO
 }
