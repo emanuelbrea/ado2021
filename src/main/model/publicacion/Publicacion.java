@@ -15,11 +15,12 @@ public class Publicacion {
     private final String lugarTrabajo;
     private final List<Requisito> requisitos;
     private final Double monto;
-    private final LocalDateTime vigencia;
+    private LocalDateTime vigencia;
     private EstadoPublicacion estado = new Activa();
     private final Categoria categoria;
     private final List<Tarea> tareas;
     private final List<Postulacion> postulaciones;
+    private final int cantidadMaxDiasInactiva = 28;
 
     public Publicacion(String titulo, String descripcion, ModalidadContrato contrato,
                        Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
@@ -106,8 +107,33 @@ public class Publicacion {
         this.tareas.add(tarea);
     }
 
+    public void manejarEstado(){
+        this.estado.manejarEstado(this);
+    }
+
     public boolean isActive() {
+        this.manejarEstado();
         return this.estado.isActive();
     }
+
+    public boolean isInactive() {
+        this.manejarEstado();
+        return this.estado.isInactive();
+    }
+
+    public boolean isClosed() {
+        this.manejarEstado();
+        return this.estado.isClosed();
+    }
+
+    public int getCantidadMaxDiasInactiva(){
+        return this.cantidadMaxDiasInactiva;
+    }
+
+    public void changeVigencia(LocalDateTime vigencia){
+        this.vigencia = vigencia;
+        this.manejarEstado();
+    }
+
 
 }

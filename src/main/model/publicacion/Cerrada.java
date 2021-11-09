@@ -1,19 +1,15 @@
 package model.publicacion;
 
-import java.time.LocalDateTime;
-
-public class Activa extends EstadoPublicacion {
+public class Cerrada extends EstadoPublicacion{
 
     @Override
     public void manejarEstado(Publicacion publicacion) {
-        if ( publicacion.getVigencia().isBefore(LocalDateTime.now())) {
-            publicacion.cambiarEstado(new Inactiva());
-        }
+
     }
 
     @Override
     public boolean isActive() {
-        return true;
+        return false;
     }
 
     @Override
@@ -23,6 +19,6 @@ public class Activa extends EstadoPublicacion {
 
     @Override
     public boolean isClosed() {
-        return false;
+        return true;
     }
 }

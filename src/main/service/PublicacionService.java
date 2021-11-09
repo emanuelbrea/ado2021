@@ -49,12 +49,8 @@ public class PublicacionService {
         publicacion.addTarea(tarea);
     }
 
-    public void deshabilitarPublicacion(@NotNull Publicacion publicacion) {
-        publicacion.cambiarEstado(new Inactiva());
-    }
-
-    public void habilitarPublicacion(@NotNull Publicacion publicacion) {
-        publicacion.cambiarEstado(new Activa());
+    public void changeVigencia(@NotNull Publicacion publicacion , LocalDateTime newVigencia){
+        publicacion.changeVigencia(newVigencia);
     }
 
     public int getCantidadPublicaciones(){

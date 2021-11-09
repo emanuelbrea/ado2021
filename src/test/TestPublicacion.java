@@ -43,29 +43,6 @@ public class TestPublicacion {
     }
 
     @Test
-    public void testDeshabilitarPublicacion(){
-        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria);
-
-        service.deshabilitarPublicacion(pub);
-
-        assertFalse( pub.isActive());
-
-    }
-
-    @Test
-    public void testHabilitarPublicacion(){
-        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",950.4,LocalDateTime.now().minus(Period.ofDays(1)), categoria);
-
-        assertFalse( pub.isActive());
-
-        service.habilitarPublicacion(pub);
-
-        assert( pub.isActive());
-    }
-
-    @Test
     public void testTrabajoRemotoSinLugar(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4,vigencia, categoria);
@@ -78,7 +55,7 @@ public class TestPublicacion {
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4, LocalDateTime.now().minus(Period.ofDays(1)), categoria);
 
-        assertFalse( pub.isActive());
+        assert( pub.isInactive());
     }
 
     @Test
@@ -87,6 +64,55 @@ public class TestPublicacion {
                 Trabajo.REMOTO, "caba",950.4, vigencia, categoria);
 
         assertFalse( pub.getTitulo().isEmpty() );
+    }
+
+    @Test
+    public void testCambiarVigencia(){
+        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria);
+
+        assert(pub.isActive());
+
+        service.changeVigencia(pub, LocalDateTime.now().minus(Period.ofDays(1)));
+
+        assert( pub.isInactive());
+
+        service.changeVigencia(pub, LocalDateTime.now().minus(Period.ofDays(60)));
+
+        assert( pub.isClosed());
+
+    }
+
+    @Test
+    public void testPublicacionCerradaNoCambia(){
+        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria);
+
+        service.changeVigencia(pub, LocalDateTime.now().minus(Period.ofDays(60)));
+
+        assert( pub.isClosed());
+
+        service.changeVigencia(pub, vigencia);
+
+        assert( pub.isClosed());
+
+    }
+
+    @Test
+    public void testReactivarPublicacion(){
+        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria);
+
+        assert(pub.isActive());
+
+        service.changeVigencia(pub, LocalDateTime.now().minus(Period.ofDays(1)));
+
+        assert( pub.isInactive());
+
+        service.changeVigencia(pub, vigencia);
+
+        assert( pub.isActive());
+
     }
 
 
