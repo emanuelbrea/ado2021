@@ -1,3 +1,4 @@
+import model.moduloNotificaciones.estrategias.Estrategia;
 import model.publicacion.*;
 import model.users.Empresa;
 import org.junit.Test;
@@ -16,11 +17,12 @@ public class TestPublicacion {
     PublicacionService service = new PublicacionService();
     Empresa empresa = new Empresa("Coto","CUIT","124512","coto@gmail.com",
             "jose", "perez");
+    Estrategia estrategia = Estrategia.EMAIL;
 
     @Test
     public void testCrearPublicacion(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria, empresa, estrategia);
 
         assert( service.getCantidadPublicaciones() == 1);
     }
@@ -28,7 +30,7 @@ public class TestPublicacion {
     @Test
     public void testCrearPublicacionConRequisito(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria, empresa, estrategia);
 
         service.agregarRequisito( pub,"saber java",true,TipoRequisito.EXPERIENCIA);
 
@@ -38,7 +40,7 @@ public class TestPublicacion {
     @Test
     public void testAgregarTarea(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria, empresa, estrategia);
 
         service.agregarTarea( pub,"correr reportes","muchos");
 
@@ -48,7 +50,7 @@ public class TestPublicacion {
     @Test
     public void testTrabajoRemotoSinLugar(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.REMOTO, "caba",950.4,vigencia, categoria, empresa);
+                Trabajo.REMOTO, "caba",950.4,vigencia, categoria, empresa, estrategia);
 
         assert( pub.getLugarTrabajo().isEmpty());
     }
@@ -56,7 +58,7 @@ public class TestPublicacion {
     @Test
     public void testCrearPublicacionInactiva(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.REMOTO, "caba",950.4, LocalDateTime.now().minus(Period.ofDays(1)), categoria, empresa);
+                Trabajo.REMOTO, "caba",950.4, LocalDateTime.now().minus(Period.ofDays(1)), categoria, empresa, estrategia);
 
         assert( pub.isInactive());
     }
@@ -64,7 +66,7 @@ public class TestPublicacion {
     @Test
     public void testCrearPublicacionSinTitulo(){
         Publicacion pub =  service.crearPublicacion("","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa);
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
         assertFalse( pub.getTitulo().isEmpty() );
     }
@@ -72,7 +74,7 @@ public class TestPublicacion {
     @Test
     public void testCambiarVigencia(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa);
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
         assert(pub.isActive());
 
@@ -89,7 +91,7 @@ public class TestPublicacion {
     @Test
     public void testPublicacionCerradaNoCambia(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa);
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
         service.changeVigencia(pub, LocalDateTime.now().minus(Period.ofDays(60)));
 
@@ -104,7 +106,7 @@ public class TestPublicacion {
     @Test
     public void testReactivarPublicacion(){
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa);
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
         assert(pub.isActive());
 

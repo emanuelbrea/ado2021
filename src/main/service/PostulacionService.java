@@ -1,6 +1,13 @@
 package service;
 
 import controllers.PostulacionController;
+import model.moduloNotificaciones.Notificacion;
+import model.moduloNotificaciones.Notificador;
+import model.moduloNotificaciones.estrategias.EstrategiaDeNotificacion;
+import model.moduloNotificaciones.estrategias.NotificacionPorEmail;
+import model.moduloNotificaciones.estrategias.NotificacionPorWhatsApp;
+import model.moduloNotificaciones.estrategias.adapters.email.AdapterEmailJavaEmail;
+import model.moduloNotificaciones.estrategias.adapters.whatsapp.AdapterWhatsAppTwilio;
 import model.postulante.*;
 import model.publicacion.Publicacion;
 import model.publicacion.Requisito;
@@ -32,6 +39,8 @@ public class PostulacionService {
         publicacion.addPostulacion(postulacion);
 
         controller.crearPostulacion(postulacion);
+
+        enviarNotificacion(publicacion);
 
         return postulacion;
 
@@ -104,6 +113,18 @@ public class PostulacionService {
         String experienciaPedida = requisitoExperiencia.getDescripcion();
 
         return experiencia.ordinal() >= Experiencia.valueOf(experienciaPedida).ordinal();
+    }
+
+    public void enviarNotificacion(Publicacion publicacion){
+        Notificador notificador = new Notificador();
+        EstrategiaDeNotificacion notificadorWhatsApp = new NotificacionPorWhatsApp(new AdapterWhatsAppTwilio());
+        EstrategiaDeNotificacion notificadorEmail = new NotificacionPorEmail(new AdapterEmailJavaEmail());
+        switch(publicacion.getEstrategia()) {
+            case WHATSAPP: notificador.setEstrategia(notificadorWhatsApp); break;
+            case EMAIL: notificador.setEstrategia(notificadorEmail); break;
+        }
+        Notificacion notificacion = new Notificacion(publicacion.getTitulo(), publicacion.getEmpresa());
+        notificador.enviar(notificacion);
     }
 
 }

@@ -20,4 +20,20 @@ public class Empresa extends User {
     public String getRazonSocial() {
         return razonSocial;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getContactoNombre() {
+        return contactoNombre;
+    }
+
+    public String getContactoApellido() {
+        return contactoApellido;
+    }
 }

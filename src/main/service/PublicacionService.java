@@ -1,13 +1,12 @@
 package service;
 
 import controllers.PublicacionController;
+import model.moduloNotificaciones.estrategias.Estrategia;
 import model.publicacion.*;
 import model.users.Empresa;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PublicacionService {
@@ -21,7 +20,8 @@ public class PublicacionService {
 
     public Publicacion crearPublicacion(String titulo, String descripcion, ModalidadContrato contrato,
                                         Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
-                                        LocalDateTime vigencia, Categoria categoria, Empresa empresa) {
+                                        LocalDateTime vigencia, Categoria categoria, Empresa empresa,
+                                        Estrategia estrategia) {
 
 
         if (tipoTrabajo == Trabajo.REMOTO) {
@@ -33,7 +33,7 @@ public class PublicacionService {
         }
 
         Publicacion publicacion = new Publicacion(titulo, descripcion, contrato, tipoTrabajo, lugarTrabajo,
-                monto, vigencia, categoria, empresa);
+                monto, vigencia, categoria, empresa, estrategia);
 
         controller.crearPublicacion(publicacion);
 

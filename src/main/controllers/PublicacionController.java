@@ -1,6 +1,7 @@
 package controllers;
 
 import dao.Conexion;
+import model.moduloNotificaciones.estrategias.Estrategia;
 import model.publicacion.Categoria;
 import model.publicacion.ModalidadContrato;
 import model.publicacion.Publicacion;
@@ -21,7 +22,7 @@ public class PublicacionController {
         try{
             String query
                     = "insert into publicacion(titulo,descripcion, contrato, trabajo, lugarTrabajo, monto, vigencia," +
-                    " categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    " categoria, estrategia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps
                     = con.prepareStatement(query);
             ps.setString(1, publicacion.getTitulo());
@@ -32,6 +33,7 @@ public class PublicacionController {
             ps.setDouble(6, publicacion.getMonto());
             ps.setTimestamp(7, Timestamp.valueOf(publicacion.getVigencia()));
             ps.setString(8, publicacion.getCategoria().name());
+            ps.setString(9, publicacion.getEstrategia().name());
             ps.executeUpdate();
             created = true;
         }
@@ -60,10 +62,11 @@ public class PublicacionController {
                 Double monto = resultSet.getDouble("monto");
                 LocalDateTime vigencia = resultSet.getTimestamp("vigencia").toLocalDateTime();
                 String categoria = resultSet.getString("categoria");
+                String estrategia = resultSet.getString("estrategia");
 
                 publicaciones.add( new Publicacion(titulo, descripcion, ModalidadContrato.valueOf(contrato),
                         Trabajo.valueOf(trabajo), lugarTrabajo,
-                        monto, vigencia, Categoria.valueOf(categoria),null));
+                        monto, vigencia, Categoria.valueOf(categoria),null, Estrategia.valueOf(estrategia)));
 
             }
         }

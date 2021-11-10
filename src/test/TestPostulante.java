@@ -1,3 +1,4 @@
+import model.moduloNotificaciones.estrategias.Estrategia;
 import model.postulante.*;
 import model.publicacion.*;
 import model.users.Empresa;
@@ -21,12 +22,13 @@ public class TestPostulante {
     Experiencia experiencia = Experiencia.AVANZADO;
     Empresa empresa = new Empresa("Coto","CUIT","124512","coto@gmail.com",
             "jose", "perez");
+    Estrategia estrategia = Estrategia.EMAIL;
 
     @Test
     public void testCrearPostulante(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa, estrategia);
 
         Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
 
@@ -39,7 +41,7 @@ public class TestPostulante {
     public void testCrearPostulanteSinRequisitos(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa, estrategia);
 
         Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
 
@@ -52,7 +54,7 @@ public class TestPostulante {
     public void testRequisitoEstudioTerciarioVsPrimario(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa, estrategia);
 
         publicacionService.agregarRequisito( pub, Estudio.TERCIARIO.name(),true, TipoRequisito.ESTUDIO_ALCANZADO);
 
@@ -69,7 +71,7 @@ public class TestPostulante {
     public void testRequisitoEstudioTerciarioVsSecundario(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa, estrategia);
 
         publicacionService.agregarRequisito( pub, Estudio.TERCIARIO.name(),true, TipoRequisito.ESTUDIO_ALCANZADO);
 
@@ -86,7 +88,7 @@ public class TestPostulante {
     public void testRequisitoEstudioTerciarioVsTerciario(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa, estrategia);
 
         publicacionService.agregarRequisito( pub, Estudio.TERCIARIO.name(),true, TipoRequisito.ESTUDIO_ALCANZADO);
 
@@ -103,7 +105,7 @@ public class TestPostulante {
     public void testRequisitoEstudioTerciarioVsUniversitario(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa, estrategia);
 
         publicacionService.agregarRequisito( pub, Estudio.TERCIARIO.name(),true, TipoRequisito.ESTUDIO_ALCANZADO);
 
@@ -120,7 +122,7 @@ public class TestPostulante {
     public void testSinRequisitoEstudio(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0,vigencia, categoria, empresa, estrategia);
 
         Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
 
@@ -133,7 +135,7 @@ public class TestPostulante {
     public void testMontoPedidoMayor(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",1000.0 ,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",1000.0 ,vigencia, categoria, empresa, estrategia);
 
         Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
 
@@ -146,7 +148,7 @@ public class TestPostulante {
     public void testIdiomaNoCumplido(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0 ,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0 ,vigencia, categoria, empresa, estrategia);
 
         publicacionService.agregarRequisito( pub, Idioma.INGLES.name(),true, TipoRequisito.IDIOMA);
 
@@ -163,7 +165,7 @@ public class TestPostulante {
     public void testIdiomaCumplido(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0 ,vigencia, categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0 ,vigencia, categoria, empresa, Estrategia.WHATSAPP);
 
         publicacionService.agregarRequisito( pub, Idioma.INGLES.name(),true, TipoRequisito.IDIOMA);
 
@@ -180,7 +182,7 @@ public class TestPostulante {
     public void testPublicacionInactiva(){
 
         Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.PRESENCIAL, "caba",10000.0 ,LocalDateTime.now().minus(Period.ofDays(1)), categoria, empresa);
+                Trabajo.PRESENCIAL, "caba",10000.0 ,LocalDateTime.now().minus(Period.ofDays(1)), categoria, empresa, estrategia);
 
         Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
 

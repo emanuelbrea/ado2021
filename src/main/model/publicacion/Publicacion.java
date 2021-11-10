@@ -1,5 +1,6 @@
 package model.publicacion;
 
+import model.moduloNotificaciones.estrategias.Estrategia;
 import model.postulante.Postulacion;
 import model.users.Empresa;
 
@@ -23,10 +24,11 @@ public class Publicacion {
     private final List<Postulacion> postulaciones;
     private final int cantidadMaxDiasInactiva = 28;
     private final Empresa empresa;
+    private final Estrategia estrategia;
 
     public Publicacion(String titulo, String descripcion, ModalidadContrato contrato,
                        Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
-                       LocalDateTime vigencia, Categoria categoria, Empresa empresa) {
+                       LocalDateTime vigencia, Categoria categoria, Empresa empresa, Estrategia estrategia) {
 
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -44,6 +46,7 @@ public class Publicacion {
         this.tareas = new ArrayList<>();
         this.postulaciones = new ArrayList<>();
         this.empresa = empresa;
+        this.estrategia = estrategia;
     }
 
     public void cambiarEstado(EstadoPublicacion estado) {
@@ -140,5 +143,9 @@ public class Publicacion {
 
     public Empresa getEmpresa() {
         return empresa;
+    }
+
+    public Estrategia getEstrategia() {
+        return estrategia;
     }
 }
