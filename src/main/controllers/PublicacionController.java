@@ -63,7 +63,7 @@ public class PublicacionController {
 
                 publicaciones.add( new Publicacion(titulo, descripcion, ModalidadContrato.valueOf(contrato),
                         Trabajo.valueOf(trabajo), lugarTrabajo,
-                        monto, vigencia, Categoria.valueOf(categoria)));
+                        monto, vigencia, Categoria.valueOf(categoria),null));
 
             }
         }

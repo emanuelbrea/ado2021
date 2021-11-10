@@ -1,6 +1,7 @@
 package model.publicacion;
 
 import model.postulante.Postulacion;
+import model.users.Empresa;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,17 +22,18 @@ public class Publicacion {
     private final List<Tarea> tareas;
     private final List<Postulacion> postulaciones;
     private final int cantidadMaxDiasInactiva = 28;
+    private final Empresa empresa;
 
     public Publicacion(String titulo, String descripcion, ModalidadContrato contrato,
                        Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
-                       LocalDateTime vigencia, Categoria categoria) {
+                       LocalDateTime vigencia, Categoria categoria, Empresa empresa) {
 
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contrato = contrato;
         this.tipoTrabajo = tipoTrabajo;
         this.lugarTrabajo = lugarTrabajo;
-        this.requisitos = new ArrayList();
+        this.requisitos = new ArrayList<>();
         this.monto = monto;
         this.vigencia = vigencia;
 
@@ -41,6 +43,7 @@ public class Publicacion {
         this.categoria = categoria;
         this.tareas = new ArrayList<>();
         this.postulaciones = new ArrayList<>();
+        this.empresa = empresa;
     }
 
     public void cambiarEstado(EstadoPublicacion estado) {
@@ -135,5 +138,7 @@ public class Publicacion {
         this.manejarEstado();
     }
 
-
+    public Empresa getEmpresa() {
+        return empresa;
+    }
 }

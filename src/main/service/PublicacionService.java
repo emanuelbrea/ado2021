@@ -2,6 +2,7 @@ package service;
 
 import controllers.PublicacionController;
 import model.publicacion.*;
+import model.users.Empresa;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class PublicacionService {
 
     public Publicacion crearPublicacion(String titulo, String descripcion, ModalidadContrato contrato,
                                         Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
-                                        LocalDateTime vigencia, Categoria categoria) {
+                                        LocalDateTime vigencia, Categoria categoria, Empresa empresa) {
 
 
         if (tipoTrabajo == Trabajo.REMOTO) {
@@ -32,7 +33,7 @@ public class PublicacionService {
         }
 
         Publicacion publicacion = new Publicacion(titulo, descripcion, contrato, tipoTrabajo, lugarTrabajo,
-                monto, vigencia, categoria);
+                monto, vigencia, categoria, empresa);
 
         controller.crearPublicacion(publicacion);
 
