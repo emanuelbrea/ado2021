@@ -6,8 +6,14 @@ public class Inactiva extends EstadoPublicacion {
 
     @Override
     public void manejarEstado(Publicacion publicacion) {
+
+        if( publicacion.getPostulanteElegido() != null){
+            publicacion.cambiarEstado(new Cerrada());
+        }
+
         int cantidadMaxDiasInactiva = publicacion.getCantidadMaxDiasInactiva();
         LocalDateTime today = LocalDateTime.now();
+
         if( publicacion.getVigencia().isAfter(today) ){
             publicacion.cambiarEstado(new Activa());
         }

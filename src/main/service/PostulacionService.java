@@ -32,6 +32,7 @@ public class PostulacionService {
             return null;
         }
         if (!this.cumpleRequisitos(postulante, publicacion, montoPretendido, experiencia)) {
+            System.out.println("El candidato no cumple con los requisitos para postularse.");
             return null;
         }
         Postulacion postulacion = new Postulacion(postulante, publicacion, cv);
@@ -125,6 +126,14 @@ public class PostulacionService {
         }
         Notificacion notificacion = new Notificacion(publicacion.getTitulo(), publicacion.getEmpresa());
         notificador.enviar(notificacion);
+    }
+
+    public void seleccionarPostulante(Postulacion postulacion){
+        if(postulacion != null){
+            Publicacion publicacion = postulacion.getPublicacion();
+            Postulante postulante = postulacion.getPostulante();
+            publicacion.seleccionarPostulante( postulante);
+        }
     }
 
 }

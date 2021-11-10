@@ -191,4 +191,36 @@ public class TestPostulante {
         assert (pub.getPostulaciones().size() == 0);
 
     }
+
+    @Test
+    public void testSeleccionarPostulante(){
+
+        Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.PRESENCIAL, "caba",10000.0 ,vigencia, categoria, empresa, estrategia);
+
+        Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
+
+        assert (pub.isActive());
+
+        postulacionService.seleccionarPostulante(postulacion);
+
+        assert (pub.isClosed());
+
+    }
+
+    @Test
+    public void testSeleccionarPostulanteQueNoCumpleRequisitos(){
+
+        Publicacion pub =  publicacionService.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.PRESENCIAL, "caba",1000.0 ,vigencia, categoria, empresa, estrategia);
+
+        Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
+
+        assert (pub.isActive());
+
+        postulacionService.seleccionarPostulante(postulacion);
+
+        assert (pub.isActive());
+
+    }
 }

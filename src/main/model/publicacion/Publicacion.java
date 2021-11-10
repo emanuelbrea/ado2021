@@ -2,6 +2,7 @@ package model.publicacion;
 
 import model.moduloNotificaciones.estrategias.Estrategia;
 import model.postulante.Postulacion;
+import model.postulante.Postulante;
 import model.users.Empresa;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class Publicacion {
     private final int cantidadMaxDiasInactiva = 28;
     private final Empresa empresa;
     private final Estrategia estrategia;
+    private Postulante postulanteElegido;
 
     public Publicacion(String titulo, String descripcion, ModalidadContrato contrato,
                        Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
@@ -47,6 +49,7 @@ public class Publicacion {
         this.postulaciones = new ArrayList<>();
         this.empresa = empresa;
         this.estrategia = estrategia;
+        this.postulanteElegido = null;
     }
 
     public void cambiarEstado(EstadoPublicacion estado) {
@@ -147,5 +150,16 @@ public class Publicacion {
 
     public Estrategia getEstrategia() {
         return estrategia;
+    }
+
+    public void seleccionarPostulante(Postulante postulante){
+        if(this.postulaciones.stream().anyMatch(postulacion -> postulacion.getPostulante() == postulante)){
+            this.postulanteElegido = postulante ;
+            this.manejarEstado();
+        }
+    }
+
+    public Postulante getPostulanteElegido() {
+        return postulanteElegido;
     }
 }
