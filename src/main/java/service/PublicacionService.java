@@ -1,6 +1,8 @@
 package service;
 
 import controllers.PublicacionController;
+import model.moduloExportador.estrategias.exportacion.FormaDeExportacion;
+import model.moduloExportador.fachada.FacadeExportador;
 import model.moduloNotificaciones.estrategias.Estrategia;
 import model.publicacion.*;
 import model.users.Empresa;
@@ -59,6 +61,10 @@ public class PublicacionService {
 
         return publicaciones.size();
 
+    }
+
+    public String exportarPublicacionAImagen(Publicacion publicacion, FormaDeExportacion exportacion){
+        return FacadeExportador.exportar(publicacion, exportacion);
     }
 
 }

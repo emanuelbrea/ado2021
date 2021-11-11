@@ -1,3 +1,4 @@
+import model.moduloExportador.estrategias.exportacion.FormaDeExportacion;
 import model.moduloNotificaciones.estrategias.Estrategia;
 import model.publicacion.*;
 import model.users.Empresa;
@@ -119,6 +120,27 @@ public class TestPublicacion {
         assert( pub.isActive());
 
     }
+
+    @Test
+    public void testExportarPublicacionJPG(){
+        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
+
+        String exportacion = service.exportarPublicacionAImagen(pub, FormaDeExportacion.PNG);
+
+        assert (exportacion.contains(pub.getTitulo()));
+    }
+
+    @Test
+    public void testExportarPublicacionSVG(){
+        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
+
+        String exportacion = service.exportarPublicacionAImagen(pub, FormaDeExportacion.SVG);
+
+        assert (exportacion.contains(pub.getTitulo()));
+    }
+
 
 
 

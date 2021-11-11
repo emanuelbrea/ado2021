@@ -29,6 +29,7 @@ public class PostulacionService {
     public Postulacion crearPostulacion(Postulante postulante, Publicacion publicacion, String cv,
                                         Double montoPretendido, Experiencia experiencia) {
         if( !publicacion.isActive()){
+            System.out.println("No se pudo postular porque la publicacion no esta activa.");
             return null;
         }
         if (!this.cumpleRequisitos(postulante, publicacion, montoPretendido, experiencia)) {

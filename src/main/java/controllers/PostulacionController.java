@@ -2,7 +2,6 @@ package controllers;
 
 import dao.Conexion;
 import model.postulante.Postulacion;
-import model.postulante.Postulante;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
