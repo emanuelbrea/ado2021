@@ -1,6 +1,5 @@
-package controllers;
+package dao;
 
-import dao.Conexion;
 import model.moduloNotificaciones.estrategias.Estrategia;
 import model.publicacion.Categoria;
 import model.publicacion.ModalidadContrato;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PublicacionController {
+public class PublicacionDao {
 
     static Connection con = Conexion.getConnection();
 

@@ -1,6 +1,6 @@
 package service;
 
-import controllers.PostulacionController;
+import dao.PostulacionDao;
 import model.moduloNotificaciones.Notificacion;
 import model.moduloNotificaciones.Notificador;
 import model.moduloNotificaciones.estrategias.EstrategiaDeNotificacion;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 
 public class PostulacionService {
 
-    PostulacionController controller ;
+    PostulacionDao controller ;
 
     public PostulacionService() {
-        this.controller = new PostulacionController();
+        this.controller = new PostulacionDao();
         this.controller.borrarPostulaciones();
     }
 

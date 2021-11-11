@@ -1,6 +1,6 @@
 package service;
 
-import controllers.PublicacionController;
+import dao.PublicacionDao;
 import model.moduloExportador.estrategias.exportacion.FormaDeExportacion;
 import model.moduloExportador.fachada.FacadeExportador;
 import model.moduloNotificaciones.estrategias.Estrategia;
@@ -13,10 +13,10 @@ import java.util.List;
 
 public class PublicacionService {
 
-    private final PublicacionController controller ;
+    private final PublicacionDao controller ;
 
     public PublicacionService() {
-        this.controller =  new PublicacionController();
+        this.controller =  new PublicacionDao();
         this.controller.borrarPublicaciones();
     }
 

@@ -1,13 +1,12 @@
-package controllers;
+package dao;
 
-import dao.Conexion;
 import model.postulante.Postulacion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PostulacionController {
+public class PostulacionDao {
 
     static Connection con = Conexion.getConnection();
 
