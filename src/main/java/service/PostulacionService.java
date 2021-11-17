@@ -12,7 +12,6 @@ import model.postulante.*;
 import model.publicacion.Publicacion;
 import model.publicacion.Requisito;
 import model.publicacion.TipoRequisito;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,7 +47,7 @@ public class PostulacionService {
 
     }
 
-    public boolean cumpleRequisitos(Postulante postulante, @NotNull Publicacion publicacion, Double montoPretendido,
+    public boolean cumpleRequisitos(Postulante postulante, Publicacion publicacion, Double montoPretendido,
                                     Experiencia experiencia) {
         List<Requisito> requisitos = publicacion.getRequisitos();
         List<Requisito> requisitosExcluyentes = requisitos.stream().filter(requisito -> requisito.isExcluyente())

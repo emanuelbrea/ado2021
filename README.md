@@ -39,8 +39,15 @@ Se utiliza en el modulo de exportacion de imagenes (JPG, PNG, SVG). Crea los dis
 
 ## Pruebas unitarias
 
-Se utilizo JUnit para hacer pruebas sobre el funcionamiento de la aplicacion.
+Se utilizo JUnit4 para hacer pruebas sobre el funcionamiento de la aplicacion.
 
 ## Bases de datos
 
 Se utilizo SQLite para almacenar datos basicos sobre las publicaciones y postulaciones.
+
+
+## Requisitos
+
+- SDK 15 o superior
+- JUnit4
+- Sqlite 

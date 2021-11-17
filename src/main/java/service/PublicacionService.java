@@ -42,17 +42,17 @@ public class PublicacionService {
         return publicacion;
     }
 
-    public void agregarRequisito(@NotNull Publicacion publicacion, String descripcion, boolean excluyente, TipoRequisito tipo) {
+    public void agregarRequisito( Publicacion publicacion, String descripcion, boolean excluyente, TipoRequisito tipo) {
         Requisito requisito = new Requisito(descripcion, excluyente, tipo);
         publicacion.addRequisito(requisito);
     }
 
-    public void agregarTarea(@NotNull Publicacion publicacion, String nombre, String descripcion) {
+    public void agregarTarea( Publicacion publicacion, String nombre, String descripcion) {
         Tarea tarea = new Tarea(nombre, descripcion);
         publicacion.addTarea(tarea);
     }
 
-    public void changeVigencia(@NotNull Publicacion publicacion , LocalDateTime newVigencia){
+    public void changeVigencia( Publicacion publicacion , LocalDateTime newVigencia){
         publicacion.changeVigencia(newVigencia);
     }
 
