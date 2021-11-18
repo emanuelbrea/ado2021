@@ -9,8 +9,6 @@ import java.time.Period;
 
 import service.PublicacionService;
 
-import static org.junit.Assert.assertFalse;
-
 public class TestPublicacion {
 
     LocalDateTime vigencia = LocalDateTime.now().plusDays(30);
@@ -22,6 +20,9 @@ public class TestPublicacion {
 
     @Test
     public void testCrearPublicacion(){
+        /**
+         * Pueba que se puede crear una publicacion con los datos obligatorios.
+         */
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria, empresa, estrategia);
 
@@ -30,6 +31,9 @@ public class TestPublicacion {
 
     @Test
     public void testCrearPublicacionConRequisito(){
+        /**
+         * Prueba que se puede agregar requisitos a una publicacion.
+         */
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.PRESENCIAL, "caba",950.4,vigencia, categoria, empresa, estrategia);
 
@@ -50,6 +54,10 @@ public class TestPublicacion {
 
     @Test
     public void testTrabajoRemotoSinLugar(){
+        /**
+         * Prueba que solamente se deberá completar si el tipo de trabajo es presencial y no se deberá
+         * especificar la dirección exacta, sino una referencia
+         */
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4,vigencia, categoria, empresa, estrategia);
 
@@ -66,14 +74,22 @@ public class TestPublicacion {
 
     @Test
     public void testCrearPublicacionSinTitulo(){
+        /**
+         * Si está vacío, el sistema deberá generar un título de forma
+         * automática tomando en cuenta la Categoría, el Tipo de trabajo y Lugar de trabajo.
+         */
         Publicacion pub =  service.crearPublicacion("","desc", ModalidadContrato.FULL_TIME,
-                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
+                Trabajo.PRESENCIAL, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
-        assertFalse( pub.getTitulo().isEmpty() );
+        assert (pub.getTitulo().equals(categoria.name() + " - " + Trabajo.PRESENCIAL + " - " + "caba"));
     }
 
     @Test
     public void testCambiarVigencia(){
+        /**
+         * Cada publicación deberá tener un periodo de vigencia durante el cual estará abierta para la recepción de
+         * postulantes. Fuera de este periodo, deberá figurar por N semanas como “Búsqueda cerrada”
+         */
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
@@ -91,6 +107,9 @@ public class TestPublicacion {
 
     @Test
     public void testPublicacionCerradaNoCambia(){
+        /**
+         * Prueba que una publicacion cerrada (no inactiva) no puede reabrirse.
+         */
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
@@ -106,6 +125,10 @@ public class TestPublicacion {
 
     @Test
     public void testReactivarPublicacion(){
+        /**
+         * Cabe destacar que, si el puesto ofrecido por una publicación no fue cubierto, la empresa interesada
+         * podrá volverla a reabrir
+         */
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
@@ -123,6 +146,23 @@ public class TestPublicacion {
 
     @Test
     public void testExportarPublicacionJPG(){
+        /**
+         * El sistema deberá generar una imagen de una publicación de oferta laboral, en distintos formatos
+         * (jpg, png, svg, entre otras), que contenga, en todos los casos, un encabezado, un cuerpo y un pie.
+         */
+        Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
+                Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
+
+        String exportacion = service.exportarPublicacionAImagen(pub, FormaDeExportacion.JPG);
+
+        assert (exportacion.contains(pub.getTitulo()));
+    }
+
+    @Test
+    public void testExportarPublicacionPNG(){
+        /**
+         * Prueba que se puede exportar a png una publicacion.
+         */
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
@@ -133,6 +173,9 @@ public class TestPublicacion {
 
     @Test
     public void testExportarPublicacionSVG(){
+        /**
+         * Prueba que se puede exportar a svg una publicacion.
+         */
         Publicacion pub =  service.crearPublicacion("titulo","desc", ModalidadContrato.FULL_TIME,
                 Trabajo.REMOTO, "caba",950.4, vigencia, categoria, empresa, estrategia);
 
