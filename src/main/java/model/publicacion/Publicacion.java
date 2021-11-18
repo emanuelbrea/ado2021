@@ -3,6 +3,9 @@ package model.publicacion;
 import model.moduloNotificaciones.Estrategia;
 import model.postulante.Postulacion;
 import model.postulante.Postulante;
+import model.publicacion.estado.Activa;
+import model.publicacion.estado.EstadoPublicacion;
+import model.publicacion.estado.Inactiva;
 import model.users.Empresa;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,6 @@
-package model.publicacion;
+package model.publicacion.estado;
+
+import model.publicacion.Publicacion;
 
 public abstract class EstadoPublicacion {
 
