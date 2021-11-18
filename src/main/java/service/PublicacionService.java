@@ -30,7 +30,7 @@ public class PublicacionService {
         }
 
         if (titulo.isEmpty()) {
-            titulo = categoria.name() + " - " + tipoTrabajo.name() + " - " + lugarTrabajo;
+            titulo = categoria.getNombre() + " - " + tipoTrabajo.name() + " - " + lugarTrabajo;
         }
 
         Publicacion publicacion = new Publicacion(titulo, descripcion, contrato, tipoTrabajo, lugarTrabajo,

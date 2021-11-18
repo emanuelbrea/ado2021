@@ -20,7 +20,7 @@ public class TestPostulante {
      */
 
     LocalDateTime vigencia = LocalDateTime.now().plusDays(30);
-    Categoria categoria = Categoria.CONTABLE;
+    Categoria categoria = new Categoria("CONTABLE", "INFORMACION CONTABLE");
 
     PublicacionService publicacionService = new PublicacionService();
     PostulacionService postulacionService = new PostulacionService();
@@ -174,9 +174,11 @@ public class TestPostulante {
         Publicacion pub = publicacionService.crearPublicacion("titulo", "desc", ModalidadContrato.FULL_TIME,
                 Trabajo.PRESENCIAL, "caba", 10000.0, vigencia, categoria, empresa, estrategia);
 
-        publicacionService.agregarRequisito(pub, Idioma.INGLES.name(), true, TipoRequisito.IDIOMA);
+        Idioma idioma = new Idioma("FRA001", "FRANCES");
 
-        postulante.addIdioma(Idioma.FRANCES);
+        publicacionService.agregarRequisito(pub, "INGLES", true, TipoRequisito.IDIOMA);
+
+        postulante.addIdioma(idioma);
 
         Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
 
@@ -194,9 +196,11 @@ public class TestPostulante {
         Publicacion pub = publicacionService.crearPublicacion("titulo", "desc", ModalidadContrato.FULL_TIME,
                 Trabajo.PRESENCIAL, "caba", 10000.0, vigencia, categoria, empresa, Estrategia.WHATSAPP);
 
-        publicacionService.agregarRequisito(pub, Idioma.INGLES.name(), true, TipoRequisito.IDIOMA);
+        Idioma idioma = new Idioma( "ING001", "INGLES");
 
-        postulante.addIdioma(Idioma.INGLES);
+        publicacionService.agregarRequisito(pub, idioma.getDescripcion(), true, TipoRequisito.IDIOMA);
+
+        postulante.addIdioma(idioma);
 
         Postulacion postulacion = postulacionService.crearPostulacion(postulante, pub, "cv", montoPretendido, experiencia);
 

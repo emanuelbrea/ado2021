@@ -31,7 +31,7 @@ public class PublicacionDao {
             ps.setString(5, publicacion.getLugarTrabajo());
             ps.setDouble(6, publicacion.getMonto());
             ps.setTimestamp(7, Timestamp.valueOf(publicacion.getVigencia()));
-            ps.setString(8, publicacion.getCategoria().name());
+            ps.setString(8, publicacion.getCategoria().getNombre());
             ps.setString(9, publicacion.getEstrategia().name());
             ps.executeUpdate();
             created = true;
@@ -64,7 +64,7 @@ public class PublicacionDao {
 
                 publicaciones.add(new Publicacion(titulo, descripcion, ModalidadContrato.valueOf(contrato),
                         Trabajo.valueOf(trabajo), lugarTrabajo,
-                        monto, vigencia, Categoria.valueOf(categoria), null, Estrategia.valueOf(estrategia)));
+                        monto, vigencia, new Categoria(categoria, ""), null, Estrategia.valueOf(estrategia)));
 
             }
         } catch (SQLException exception) {

@@ -90,7 +90,7 @@ public class PostulacionService {
 
         List<Idioma> idiomasPostulante = postulante.getIdiomas();
         for (Requisito requisito : requisitosIdiomas) {
-            if (idiomasPostulante.stream().noneMatch(idioma -> requisito.getDescripcion() == idioma.name())) {
+            if (idiomasPostulante.stream().noneMatch(idioma -> requisito.getDescripcion() == idioma.getDescripcion())) {
                 return false;
             }
         }

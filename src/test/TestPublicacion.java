@@ -11,7 +11,7 @@ import java.time.Period;
 public class TestPublicacion {
 
     LocalDateTime vigencia = LocalDateTime.now().plusDays(30);
-    Categoria categoria = Categoria.CONTABLE;
+    Categoria categoria = new Categoria("CONTABLE", "INFORMACION CONTABLE");
     PublicacionService service = new PublicacionService();
     Empresa empresa = new Empresa("Coto", "CUIT", "124512", "coto@gmail.com",
             "jose", "perez");
@@ -80,7 +80,7 @@ public class TestPublicacion {
         Publicacion pub = service.crearPublicacion("", "desc", ModalidadContrato.FULL_TIME,
                 Trabajo.PRESENCIAL, "caba", 950.4, vigencia, categoria, empresa, estrategia);
 
-        assert (pub.getTitulo().equals(categoria.name() + " - " + Trabajo.PRESENCIAL + " - " + "caba"));
+        assert (pub.getTitulo().equals(categoria.getNombre() + " - " + Trabajo.PRESENCIAL + " - " + "caba"));
     }
 
     @Test
