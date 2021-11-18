@@ -14,13 +14,6 @@ import java.util.stream.Collectors;
 
 public class PostulacionService {
 
-    PostulacionDao postulacionDao;
-
-    public PostulacionService() {
-        this.postulacionDao = new PostulacionDao();
-        this.postulacionDao.borrarPostulaciones();
-    }
-
     public Postulacion crearPostulacion(Postulante postulante, Publicacion publicacion, String cv,
                                         Double montoPretendido, Experiencia experiencia) {
         if (!publicacion.isActive()) {
@@ -34,8 +27,6 @@ public class PostulacionService {
         Postulacion postulacion = new Postulacion(postulante, publicacion, cv);
         postulante.addPostulacion(postulacion);
         publicacion.addPostulacion(postulacion);
-
-        postulacionDao.crearPostulacion(postulacion);
 
         enviarNotificacion(publicacion);
 

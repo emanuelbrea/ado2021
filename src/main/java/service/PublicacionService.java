@@ -12,13 +12,6 @@ import java.util.List;
 
 public class PublicacionService {
 
-    private final PublicacionDao postulacionDao;
-
-    public PublicacionService() {
-        this.postulacionDao = new PublicacionDao();
-        this.postulacionDao.borrarPublicaciones();
-    }
-
     public Publicacion crearPublicacion(String titulo, String descripcion, ModalidadContrato contrato,
                                         Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
                                         LocalDateTime vigencia, Categoria categoria, Empresa empresa,
@@ -36,7 +29,9 @@ public class PublicacionService {
         Publicacion publicacion = new Publicacion(titulo, descripcion, contrato, tipoTrabajo, lugarTrabajo,
                 monto, vigencia, categoria, empresa, estrategia);
 
-        postulacionDao.crearPublicacion(publicacion);
+        publicacion.crearPublicacion();
+
+
 
         return publicacion;
     }
@@ -55,12 +50,7 @@ public class PublicacionService {
         publicacion.changeVigencia(newVigencia);
     }
 
-    public int getCantidadPublicaciones() {
-        List<Publicacion> publicaciones = postulacionDao.getPublicaciones();
 
-        return publicaciones.size();
-
-    }
 
     public String exportarPublicacionAImagen(Publicacion publicacion, FormaDeExportacion exportacion) {
         return FacadeExportador.exportar(publicacion, exportacion);

@@ -1,5 +1,6 @@
 package model.publicacion;
 
+import dao.PublicacionDao;
 import model.moduloNotificaciones.Estrategia;
 import model.postulante.Postulacion;
 import model.postulante.Postulante;
@@ -31,6 +32,8 @@ public class Publicacion {
     private final Estrategia estrategia;
     private Postulante postulanteElegido;
 
+    private final PublicacionDao publicacionDao;
+
     public Publicacion(String titulo, String descripcion, ModalidadContrato contrato,
                        Trabajo tipoTrabajo, String lugarTrabajo, Double monto,
                        LocalDateTime vigencia, Categoria categoria, Empresa empresa, Estrategia estrategia) {
@@ -53,6 +56,13 @@ public class Publicacion {
         this.empresa = empresa;
         this.estrategia = estrategia;
         this.postulanteElegido = null;
+        this.publicacionDao = new PublicacionDao();
+
+    }
+
+    public void crearPublicacion(){
+        this.publicacionDao.borrarPublicaciones();
+        this.publicacionDao.crearPublicacion(this);
     }
 
     public void cambiarEstado(EstadoPublicacion estado) {
@@ -160,6 +170,14 @@ public class Publicacion {
             this.postulanteElegido = postulante;
             this.manejarEstado();
         }
+    }
+
+    public int getCantidadPublicaciones() {
+
+        List<Publicacion> publicaciones = publicacionDao.getPublicaciones();
+
+        return publicaciones.size();
+
     }
 
     public Postulante getPostulanteElegido() {

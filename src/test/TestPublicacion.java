@@ -25,7 +25,7 @@ public class TestPublicacion {
         Publicacion pub = service.crearPublicacion("titulo", "desc", ModalidadContrato.FULL_TIME,
                 Trabajo.PRESENCIAL, "caba", 950.4, vigencia, categoria, empresa, estrategia);
 
-        assert (service.getCantidadPublicaciones() == 1);
+        assert (pub.getCantidadPublicaciones() == 1);
     }
 
     @Test

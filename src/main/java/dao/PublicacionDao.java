@@ -44,7 +44,7 @@ public class PublicacionDao {
 
     }
 
-    public List<Publicacion> getPublicaciones() {
+    public  List<Publicacion> getPublicaciones() {
         List<Publicacion> publicaciones = new ArrayList<>();
         try {
             String query = "select * from publicacion";

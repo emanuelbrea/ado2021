@@ -10,6 +10,10 @@ public class PostulacionDao {
 
     static Connection con = Conexion.getConnection();
 
+    public PostulacionDao(){
+        this.borrarPostulaciones();
+    }
+
     public boolean crearPostulacion(Postulacion postulacion) {
         boolean created = false;
         try {

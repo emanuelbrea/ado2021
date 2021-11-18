@@ -1,5 +1,6 @@
 package model.postulante;
 
+import dao.PostulacionDao;
 import model.publicacion.Publicacion;
 
 import java.time.LocalDateTime;
@@ -11,11 +12,17 @@ public class Postulacion {
     private LocalDateTime fecha;
     private String cvPath;
 
+    private PostulacionDao postulacionDao;
+
     public Postulacion(Postulante postulante, Publicacion publicacion, String cvPath) {
         this.postulante = postulante;
         this.publicacion = publicacion;
         this.cvPath = cvPath;
         this.fecha = LocalDateTime.now();
+
+        this.postulacionDao = new PostulacionDao();
+
+        postulacionDao.crearPostulacion(this);
     }
 
     public int getId() {
