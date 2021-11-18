@@ -1,13 +1,9 @@
 package service;
 
 import dao.PostulacionDao;
-import model.moduloNotificaciones.Notificacion;
-import model.moduloNotificaciones.Notificador;
-import model.moduloNotificaciones.estrategias.EstrategiaDeNotificacion;
-import model.moduloNotificaciones.estrategias.NotificacionPorEmail;
-import model.moduloNotificaciones.estrategias.NotificacionPorWhatsApp;
-import model.moduloNotificaciones.estrategias.adapters.email.AdapterEmailJavaEmail;
-import model.moduloNotificaciones.estrategias.adapters.whatsapp.AdapterWhatsAppTwilio;
+import model.moduloNotificaciones.*;
+import model.moduloNotificaciones.adapters.email.AdapterEmailJavaEmail;
+import model.moduloNotificaciones.adapters.whatsapp.AdapterWhatsAppTwilio;
 import model.postulante.*;
 import model.publicacion.Publicacion;
 import model.publicacion.Requisito;
@@ -18,16 +14,16 @@ import java.util.stream.Collectors;
 
 public class PostulacionService {
 
-    PostulacionDao controller ;
+    PostulacionDao postulacionDao;
 
     public PostulacionService() {
-        this.controller = new PostulacionDao();
-        this.controller.borrarPostulaciones();
+        this.postulacionDao = new PostulacionDao();
+        this.postulacionDao.borrarPostulaciones();
     }
 
     public Postulacion crearPostulacion(Postulante postulante, Publicacion publicacion, String cv,
                                         Double montoPretendido, Experiencia experiencia) {
-        if( !publicacion.isActive()){
+        if (!publicacion.isActive()) {
             System.out.println("No se pudo postular porque la publicacion no esta activa.");
             return null;
         }
@@ -39,7 +35,7 @@ public class PostulacionService {
         postulante.addPostulacion(postulacion);
         publicacion.addPostulacion(postulacion);
 
-        controller.crearPostulacion(postulacion);
+        postulacionDao.crearPostulacion(postulacion);
 
         enviarNotificacion(publicacion);
 
@@ -47,8 +43,8 @@ public class PostulacionService {
 
     }
 
-    public boolean cumpleRequisitos(Postulante postulante, Publicacion publicacion, Double montoPretendido,
-                                    Experiencia experiencia) {
+    private boolean cumpleRequisitos(Postulante postulante, Publicacion publicacion, Double montoPretendido,
+                                     Experiencia experiencia) {
         List<Requisito> requisitos = publicacion.getRequisitos();
         List<Requisito> requisitosExcluyentes = requisitos.stream().filter(requisito -> requisito.isExcluyente())
                 .collect(Collectors.toList());
@@ -60,11 +56,11 @@ public class PostulacionService {
 
     }
 
-    public boolean cumpleMontoEsperado(Publicacion publicacion, Double montoPretendido) {
+    private boolean cumpleMontoEsperado(Publicacion publicacion, Double montoPretendido) {
         return montoPretendido <= publicacion.getMonto();
     }
 
-    public boolean cumpleEstudiosEsperados(Postulante postulante, List<Requisito> requisitosExcluyentes) {
+    private boolean cumpleEstudiosEsperados(Postulante postulante, List<Requisito> requisitosExcluyentes) {
 
         Requisito requisitoEstudio = requisitosExcluyentes.stream()
                 .filter(requisito -> requisito.getTipo() == TipoRequisito.ESTUDIO_ALCANZADO)
@@ -82,7 +78,7 @@ public class PostulacionService {
 
     }
 
-    public boolean cumpleIdiomasEsperados(Postulante postulante, List<Requisito> requisitosExcluyentes) {
+    private boolean cumpleIdiomasEsperados(Postulante postulante, List<Requisito> requisitosExcluyentes) {
 
         List<Requisito> requisitosIdiomas = requisitosExcluyentes.stream()
                 .filter(requisito -> requisito.getTipo() == TipoRequisito.IDIOMA)
@@ -101,7 +97,7 @@ public class PostulacionService {
         return true;
     }
 
-    public boolean cumpleExperienciaEsperada(List<Requisito> requisitosExcluyentes, Experiencia experiencia) {
+    private boolean cumpleExperienciaEsperada(List<Requisito> requisitosExcluyentes, Experiencia experiencia) {
         Requisito requisitoExperiencia = requisitosExcluyentes.stream()
                 .filter(requisito -> requisito.getTipo() == TipoRequisito.EXPERIENCIA)
                 .findFirst()
@@ -116,23 +112,27 @@ public class PostulacionService {
         return experiencia.ordinal() >= Experiencia.valueOf(experienciaPedida).ordinal();
     }
 
-    public void enviarNotificacion(Publicacion publicacion){
+    private void enviarNotificacion(Publicacion publicacion) {
         Notificador notificador = new Notificador();
         EstrategiaDeNotificacion notificadorWhatsApp = new NotificacionPorWhatsApp(new AdapterWhatsAppTwilio());
         EstrategiaDeNotificacion notificadorEmail = new NotificacionPorEmail(new AdapterEmailJavaEmail());
-        switch(publicacion.getEstrategia()) {
-            case WHATSAPP: notificador.setEstrategia(notificadorWhatsApp); break;
-            case EMAIL: notificador.setEstrategia(notificadorEmail); break;
+        switch (publicacion.getEstrategia()) {
+            case WHATSAPP:
+                notificador.setEstrategia(notificadorWhatsApp);
+                break;
+            case EMAIL:
+                notificador.setEstrategia(notificadorEmail);
+                break;
         }
         Notificacion notificacion = new Notificacion(publicacion.getTitulo(), publicacion.getEmpresa());
         notificador.enviar(notificacion);
     }
 
-    public void seleccionarPostulante(Postulacion postulacion){
-        if(postulacion != null){
+    public void seleccionarPostulante(Postulacion postulacion) {
+        if (postulacion != null) {
             Publicacion publicacion = postulacion.getPublicacion();
             Postulante postulante = postulacion.getPostulante();
-            publicacion.seleccionarPostulante( postulante);
+            publicacion.seleccionarPostulante(postulante);
         }
     }
 

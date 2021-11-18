@@ -1,8 +1,9 @@
-package model.moduloExportador.exportables;
+package model.moduloExportador;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
-public class Imagen implements Exportable{
+public class Imagen implements Exportable {
     private String encabezado;
     private String cuerpo;
     private String pie;

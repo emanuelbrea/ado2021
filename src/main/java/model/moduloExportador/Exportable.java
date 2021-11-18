@@ -1,4 +1,4 @@
-package model.moduloExportador.exportables;
+package model.moduloExportador;
 
 import java.util.List;
 

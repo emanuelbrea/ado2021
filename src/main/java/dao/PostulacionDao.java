@@ -10,9 +10,9 @@ public class PostulacionDao {
 
     static Connection con = Conexion.getConnection();
 
-    public boolean crearPostulacion(Postulacion postulacion){
+    public boolean crearPostulacion(Postulacion postulacion) {
         boolean created = false;
-        try{
+        try {
             String query = "insert into postulacion( nombrePostulante, apellidoPostulante, tituloPublicacion) values" +
                     "(?, ?, ?)";
             PreparedStatement ps
@@ -22,8 +22,7 @@ public class PostulacionDao {
             ps.setString(3, postulacion.getPublicacion().getTitulo());
             ps.executeUpdate();
             created = true;
-        }
-        catch (SQLException exception){
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
         return created;
@@ -31,13 +30,12 @@ public class PostulacionDao {
     }
 
     public void borrarPostulaciones() {
-        try{
+        try {
             String query = "delete from postulacion";
             PreparedStatement ps
                     = con.prepareStatement(query);
             ps.executeUpdate();
-        }
-        catch (SQLException exception){
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }

@@ -1,6 +1,6 @@
 package dao;
 
-import model.moduloNotificaciones.estrategias.Estrategia;
+import model.moduloNotificaciones.Estrategia;
 import model.publicacion.Categoria;
 import model.publicacion.ModalidadContrato;
 import model.publicacion.Publicacion;
@@ -16,9 +16,9 @@ public class PublicacionDao {
     static Connection con = Conexion.getConnection();
 
 
-    public boolean crearPublicacion(Publicacion publicacion){
+    public boolean crearPublicacion(Publicacion publicacion) {
         boolean created = false;
-        try{
+        try {
             String query
                     = "insert into publicacion(titulo,descripcion, contrato, trabajo, lugarTrabajo, monto, vigencia," +
                     " categoria, estrategia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,8 +35,7 @@ public class PublicacionDao {
             ps.setString(9, publicacion.getEstrategia().name());
             ps.executeUpdate();
             created = true;
-        }
-        catch (SQLException exception){
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
 
@@ -47,12 +46,12 @@ public class PublicacionDao {
 
     public List<Publicacion> getPublicaciones() {
         List<Publicacion> publicaciones = new ArrayList<>();
-        try{
+        try {
             String query = "select * from publicacion";
             PreparedStatement ps
                     = con.prepareStatement(query);
             ResultSet resultSet = ps.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 String titulo = resultSet.getString("titulo");
                 String descripcion = resultSet.getString("descripcion");
                 String contrato = resultSet.getString("contrato");
@@ -63,13 +62,12 @@ public class PublicacionDao {
                 String categoria = resultSet.getString("categoria");
                 String estrategia = resultSet.getString("estrategia");
 
-                publicaciones.add( new Publicacion(titulo, descripcion, ModalidadContrato.valueOf(contrato),
+                publicaciones.add(new Publicacion(titulo, descripcion, ModalidadContrato.valueOf(contrato),
                         Trabajo.valueOf(trabajo), lugarTrabajo,
-                        monto, vigencia, Categoria.valueOf(categoria),null, Estrategia.valueOf(estrategia)));
+                        monto, vigencia, Categoria.valueOf(categoria), null, Estrategia.valueOf(estrategia)));
 
             }
-        }
-        catch (SQLException exception){
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
 
@@ -77,13 +75,12 @@ public class PublicacionDao {
     }
 
     public void borrarPublicaciones() {
-        try{
+        try {
             String query = "delete from publicacion";
             PreparedStatement ps
                     = con.prepareStatement(query);
             ps.executeUpdate();
-        }
-        catch (SQLException exception){
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }

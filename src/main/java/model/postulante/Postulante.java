@@ -50,7 +50,7 @@ public class Postulante extends User {
         return idiomas;
     }
 
-    public void addFavorito( Publicacion publicacion){
+    public void addFavorito(Publicacion publicacion) {
         this.favoritos.add(publicacion);
     }
 

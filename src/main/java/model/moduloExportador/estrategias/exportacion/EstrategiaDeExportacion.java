@@ -1,8 +1,8 @@
 package model.moduloExportador.estrategias.exportacion;
 
 
-import model.moduloExportador.exportables.Exportable;
+import model.moduloExportador.Exportable;
 
 public interface EstrategiaDeExportacion {
-	String exportar(Exportable exportable);
+    String exportar(Exportable exportable);
 }

@@ -1,6 +1,6 @@
 package model.publicacion;
 
-public class Cerrada extends EstadoPublicacion{
+public class Cerrada extends EstadoPublicacion {
 
     @Override
     public void manejarEstado(Publicacion publicacion) {

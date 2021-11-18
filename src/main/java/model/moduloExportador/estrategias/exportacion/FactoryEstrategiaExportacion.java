@@ -1,16 +1,14 @@
 package model.moduloExportador.estrategias.exportacion;
 
 
-import model.moduloExportador.estrategias.exportacion.jpg.ExportarAJPG;
-import model.moduloExportador.estrategias.exportacion.png.ExportarAPNG;
-import model.moduloExportador.estrategias.exportacion.svg.AdapterSVG;
-import model.moduloExportador.estrategias.exportacion.svg.ExportarASVG;
+import model.moduloExportador.estrategias.exportacion.adapterSVG.AdapterSVG;
+import model.moduloExportador.estrategias.exportacion.adapterSVG.ExportarASVG;
 
 public class FactoryEstrategiaExportacion {
 
-    public static EstrategiaDeExportacion crearEstrategia(FormaDeExportacion formaDeExportacion, String nombreDelArchivo){
+    public static EstrategiaDeExportacion crearEstrategia(FormaDeExportacion formaDeExportacion, String nombreDelArchivo) {
         EstrategiaDeExportacion estrategia = null;
-        switch (formaDeExportacion){
+        switch (formaDeExportacion) {
             case JPG:
                 estrategia = new ExportarAJPG(nombreDelArchivo);
                 break;

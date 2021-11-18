@@ -1,9 +1,10 @@
-package model.moduloExportador.estrategias.exportacion.svg;
+package model.moduloExportador.estrategias.exportacion.adapterSVG;
 
-import model.moduloExportador.exportables.Exportable;
+import model.moduloExportador.Exportable;
 
-public class AdapterSVG implements AdapterExportadorSVG{
+public class AdapterSVG implements AdapterExportadorSVG {
     private String nombreDeArchivo;
+
     public AdapterSVG(String nombreDeArchivo) {
 
         this.nombreDeArchivo = nombreDeArchivo;
@@ -11,11 +12,10 @@ public class AdapterSVG implements AdapterExportadorSVG{
 
     public String exportar(Exportable exportable) {
         System.out.println("Imagen SVG exportada correctamente con datos: "
-        + exportable.getDatos().toString());
+                + exportable.getDatos().toString());
 
         return exportable.getDatos().toString();
     }
-
 
 
 }

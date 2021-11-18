@@ -6,10 +6,9 @@ public class Activa extends EstadoPublicacion {
 
     @Override
     public void manejarEstado(Publicacion publicacion) {
-        if( publicacion.getPostulanteElegido() != null){
+        if (publicacion.getPostulanteElegido() != null) {
             publicacion.cambiarEstado(new Cerrada());
-        }
-        else if ( publicacion.getVigencia().isBefore(LocalDateTime.now())) {
+        } else if (publicacion.getVigencia().isBefore(LocalDateTime.now())) {
             publicacion.cambiarEstado(new Inactiva());
         }
     }

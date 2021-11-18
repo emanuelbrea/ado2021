@@ -1,23 +1,22 @@
 package service;
 
 import dao.PublicacionDao;
+import model.moduloExportador.FacadeExportador;
 import model.moduloExportador.estrategias.exportacion.FormaDeExportacion;
-import model.moduloExportador.fachada.FacadeExportador;
-import model.moduloNotificaciones.estrategias.Estrategia;
+import model.moduloNotificaciones.Estrategia;
 import model.publicacion.*;
 import model.users.Empresa;
-import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class PublicacionService {
 
-    private final PublicacionDao controller ;
+    private final PublicacionDao postulacionDao;
 
     public PublicacionService() {
-        this.controller =  new PublicacionDao();
-        this.controller.borrarPublicaciones();
+        this.postulacionDao = new PublicacionDao();
+        this.postulacionDao.borrarPublicaciones();
     }
 
     public Publicacion crearPublicacion(String titulo, String descripcion, ModalidadContrato contrato,
@@ -37,33 +36,33 @@ public class PublicacionService {
         Publicacion publicacion = new Publicacion(titulo, descripcion, contrato, tipoTrabajo, lugarTrabajo,
                 monto, vigencia, categoria, empresa, estrategia);
 
-        controller.crearPublicacion(publicacion);
+        postulacionDao.crearPublicacion(publicacion);
 
         return publicacion;
     }
 
-    public void agregarRequisito( Publicacion publicacion, String descripcion, boolean excluyente, TipoRequisito tipo) {
+    public void agregarRequisito(Publicacion publicacion, String descripcion, boolean excluyente, TipoRequisito tipo) {
         Requisito requisito = new Requisito(descripcion, excluyente, tipo);
         publicacion.addRequisito(requisito);
     }
 
-    public void agregarTarea( Publicacion publicacion, String nombre, String descripcion) {
+    public void agregarTarea(Publicacion publicacion, String nombre, String descripcion) {
         Tarea tarea = new Tarea(nombre, descripcion);
         publicacion.addTarea(tarea);
     }
 
-    public void changeVigencia( Publicacion publicacion , LocalDateTime newVigencia){
+    public void changeVigencia(Publicacion publicacion, LocalDateTime newVigencia) {
         publicacion.changeVigencia(newVigencia);
     }
 
-    public int getCantidadPublicaciones(){
-        List<Publicacion> publicaciones = controller.getPublicaciones();
+    public int getCantidadPublicaciones() {
+        List<Publicacion> publicaciones = postulacionDao.getPublicaciones();
 
         return publicaciones.size();
 
     }
 
-    public String exportarPublicacionAImagen(Publicacion publicacion, FormaDeExportacion exportacion){
+    public String exportarPublicacionAImagen(Publicacion publicacion, FormaDeExportacion exportacion) {
         return FacadeExportador.exportar(publicacion, exportacion);
     }
 

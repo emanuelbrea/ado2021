@@ -1,11 +1,12 @@
-package model.moduloExportador.estrategias.exportacion.svg;
+package model.moduloExportador.estrategias.exportacion.adapterSVG;
 
+import model.moduloExportador.Exportable;
 import model.moduloExportador.estrategias.exportacion.EstrategiaDeExportacion;
-import model.moduloExportador.exportables.Exportable;
 
 public class ExportarASVG implements EstrategiaDeExportacion {
     private AdapterExportadorSVG adapter;
-    public ExportarASVG(AdapterExportadorSVG adapter){
+
+    public ExportarASVG(AdapterExportadorSVG adapter) {
         this.adapter = adapter;
     }
 

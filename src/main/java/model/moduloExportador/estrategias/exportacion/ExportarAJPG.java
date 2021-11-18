@@ -1,6 +1,6 @@
-package model.moduloExportador.estrategias.exportacion.jpg;
-import model.moduloExportador.estrategias.exportacion.EstrategiaDeExportacion;
-import model.moduloExportador.exportables.Exportable;
+package model.moduloExportador.estrategias.exportacion;
+
+import model.moduloExportador.Exportable;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -16,15 +16,14 @@ public class ExportarAJPG implements EstrategiaDeExportacion {
 
     public String exportar(Exportable exportable) {
         String path = nombreDeArchivo;
-        try{
+        try {
             URL resource = getClass().getClassLoader().getResource("jpg_example.jpg");
-            File file = new File( resource.toURI());
+            File file = new File(resource.toURI());
             BufferedImage image = ImageIO.read(file);
             path = file.getParent() + "\\" + path;
             ImageIO.write(image, "jpg", new File(path));
             System.out.println("Exportada imagen JPG correctamente a: " + path);
-        }
-        catch (Exception exception){
+        } catch (Exception exception) {
         }
         return path;
     }

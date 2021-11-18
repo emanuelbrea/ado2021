@@ -1,6 +1,6 @@
 package model.publicacion;
 
-import model.moduloNotificaciones.estrategias.Estrategia;
+import model.moduloNotificaciones.Estrategia;
 import model.postulante.Postulacion;
 import model.postulante.Postulante;
 import model.users.Empresa;
@@ -116,7 +116,7 @@ public class Publicacion {
         this.tareas.add(tarea);
     }
 
-    public void manejarEstado(){
+    public void manejarEstado() {
         this.estado.manejarEstado(this);
     }
 
@@ -135,11 +135,11 @@ public class Publicacion {
         return this.estado.isClosed();
     }
 
-    public int getCantidadMaxDiasInactiva(){
+    public int getCantidadMaxDiasInactiva() {
         return this.cantidadMaxDiasInactiva;
     }
 
-    public void changeVigencia(LocalDateTime vigencia){
+    public void changeVigencia(LocalDateTime vigencia) {
         this.vigencia = vigencia;
         this.manejarEstado();
     }
@@ -152,9 +152,9 @@ public class Publicacion {
         return estrategia;
     }
 
-    public void seleccionarPostulante(Postulante postulante){
-        if(this.postulaciones.stream().anyMatch(postulacion -> postulacion.getPostulante() == postulante)){
-            this.postulanteElegido = postulante ;
+    public void seleccionarPostulante(Postulante postulante) {
+        if (this.postulaciones.stream().anyMatch(postulacion -> postulacion.getPostulante() == postulante)) {
+            this.postulanteElegido = postulante;
             this.manejarEstado();
         }
     }
